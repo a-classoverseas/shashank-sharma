@@ -1,500 +1,125 @@
+
 <!doctype html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Shashank Sharma | A-Class Marble</title>
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
-
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-  <!-- Slick Slider CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
-
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:Poppins,sans-serif;background:#f1f3f6;padding:40px 20px}
+    .wrapper{max-width:600px;margin:0 auto}
+    .banner img,.banner video{width:100%;height:260px;object-fit:cover;border-radius:14px;display:block}
+    .profile-box{margin:-60px 15px 0;background:#fff;border-radius:16px;padding:25px;box-shadow:0 6px 18px rgba(0,0,0,.1);text-align:center}
+    .profile-box img{width:120px;height:120px;border-radius:50%;object-fit:cover;border:4px solid #fff;transition:transform .3s;cursor:pointer}
+    .profile-box img:hover{transform:scale(1.05)}
+    .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.9);z-index:10000;justify-content:center;align-items:center;cursor:pointer}
+    .modal-overlay.active{display:flex}
+    .modal-content{max-width:90%;max-height:90%;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+    .modal-close{position:absolute;top:20px;right:30px;font-size:40px;color:#fff;cursor:pointer;transition:color .3s}
+    .modal-close:hover{color:#ccc}
+    .profile-box h3{margin-top:15px;margin-bottom:5px;font-size:24px;font-weight:600}
+    .profile-box .subtitle{color:#6c757d;margin-bottom:5px}
+    .profile-box .company{font-weight:600;margin-bottom:15px}
+    .profile-box .description{margin-top:15px;line-height:1.6}
+    .social-icons{margin-top:20px}
+    .social-icons a{display:inline-block;margin:0 10px;font-size:26px;color:#333;transition:all .3s}
+    .social-icons a:hover{transform:scale(1.2);color:#007bff}
+    .contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin:30px 15px 0}
+    .contact-grid .full-width{grid-column:1/-1}
+    .info-card{background:#fff;border-radius:12px;padding:18px;box-shadow:0 4px 12px rgba(0,0,0,.06);transition:transform .3s}
+    .info-card:hover{transform:translateY(-4px)}
+    .info-card h6{font-size:16px;font-weight:600;margin-bottom:8px}
+    .info-card h6 i{margin-right:8px}
+    .info-card a{color:#007bff;text-decoration:none}
+    .info-card a:hover{text-decoration:underline}
+    .qr-section{text-align:center;margin-top:50px}
+    .qr-section h4{font-size:20px;margin-bottom:20px}
+    .qr-box{display:inline-block;padding:15px;background:#f9f9f9;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.1)}
+    .qr-box img{display:block;cursor:pointer}
+    .footer{text-align:center;margin-top:50px;margin-bottom:30px;color:#6c757d}
+    .sticky-btn-wrapper{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);z-index:1000}
+    .add-contact-btn{background:#000;color:#fff;padding:15px 30px;border-radius:50px;text-decoration:none;display:flex;align-items:center;gap:10px;box-shadow:0 10px 30px rgba(0,0,0,.4);transition:all .3s}
+    .add-contact-btn:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(0,0,0,.6);color:#fff}
+    .share-btn{position:fixed;top:50%;right:0;transform:translateY(-50%);background:#000;color:#fff;padding:14px 18px;border-radius:12px 0 0 12px;font-size:20px;box-shadow:0 4px 15px rgba(0,0,0,.25);text-decoration:none;transition:all .3s;z-index:9999}
+    .share-btn:hover{background:#afafaf}
+    .section-header{text-align:center;font-size:20px;margin:40px 0 20px;position:relative;padding-bottom:15px;color:#333}
+    .section-island{background:#fff;border-radius:16px;padding:25px;box-shadow:0 6px 18px rgba(0,0,0,.1);margin:20px 15px}
+    .section-island .section-header{margin-top:0}
+    .gallery-card,.product-card,.testimonial-card{background:#f9f9f9;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.1);margin:10px;transition:transform .3s}
+    .gallery-card:hover,.product-card:hover,.testimonial-card:hover{transform:translateY(-5px)}
+    .gallery-card a{display:block}
+    .gallery-card img{width:100%;height:200px;object-fit:cover}
+    .product-image{width:100%;height:180px;overflow:hidden}
+    .product-image img{width:100%;height:100%;object-fit:cover}
+    .product-details{padding:15px}
+    .product-details h4{font-size:16px;margin-bottom:8px;color:#000}
+    .product-details p{font-size:13px;color:#666;line-height:1.5}
+    .testimonial-card{padding:20px}
+    .testimonial-user{display:flex;align-items:center;gap:15px;margin-bottom:15px}
+    .testimonial-avatar{width:50px;height:50px;border-radius:50%;overflow:hidden}
+    .testimonial-avatar img{width:100%;height:100%;object-fit:cover}
+    .testimonial-user-info h5{margin:0;font-size:16px;color:#000}
+    .testimonial-user-info p{margin:0;font-size:12px;color:#6c757d}
+    .testimonial-message{font-size:14px;color:#555;font-style:italic;line-height:1.5}
+    .slick-dots li button:before{font-size:10px;color:#ccc}
+    .slick-dots li.slick-active button:before{color:#000!important}
+    .slick-prev:before,.slick-next:before{color:#000}
+    @media(max-width:600px){
+      .contact-grid{grid-template-columns:1fr}
+      .sticky-btn-wrapper{bottom:15px;right:15px}
+      .add-contact-btn{padding:12px 20px;font-size:.9rem}
     }
-
-    body {
-      font-family: Poppins, sans-serif;
-      background: #f1f3f6;
-      padding: 40px 20px;
-    }
-
-    .wrapper {
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .banner img,
-    .banner video {
-      width: 100%;
-      height: 260px;
-      object-fit: cover;
-      border-radius: 14px;
-      display: block;
-    }
-
-    .profile-box {
-      margin: -60px 15px 0;
-      background: #fff;
-      border-radius: 16px;
-      padding: 25px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-      text-align: center;
-    }
-
-    .profile-box img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid white;
-      transition: transform 0.3s ease;
-      cursor: pointer;
-    }
-
-    .profile-box img:hover {
-      transform: scale(1.05);
-    }
-
-    /* Modal Styles */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      z-index: 10000;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-    }
-
-    .modal-overlay.active {
-      display: flex;
-    }
-
-    .modal-content {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 10px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 40px;
-      color: white;
-      cursor: pointer;
-      transition: color 0.3s ease;
-    }
-
-    .modal-close:hover {
-      color: #ccc;
-    }
-
-    .profile-box h3 {
-      margin-top: 15px;
-      margin-bottom: 5px;
-      font-size: 24px;
-      font-weight: 600;
-    }
-
-    .profile-box .subtitle {
-      color: #6c757d;
-      margin-bottom: 5px;
-    }
-
-    .profile-box .company {
-      font-weight: 600;
-      margin-bottom: 15px;
-    }
-
-    .profile-box .description {
-      margin-top: 15px;
-      line-height: 1.6;
-    }
-
-    .social-icons {
-      margin-top: 20px;
-    }
-
-    .social-icons a {
-      display: inline-block;
-      margin: 0 10px;
-      font-size: 26px;
-      color: #333;
-      transition: all 0.3s ease;
-    }
-
-    .social-icons a:hover {
-      transform: scale(1.2);
-      color: #007bff;
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      margin: 30px 15px 0;
-    }
-
-    .contact-grid .full-width {
-      grid-column: 1 / -1;
-    }
-
-    .info-card {
-      background: #fff;
-      border-radius: 12px;
-      padding: 18px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-      transition: transform 0.3s ease;
-    }
-
-    .info-card:hover {
-      transform: translateY(-4px);
-    }
-
-    .info-card h6 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .info-card h6 i {
-      margin-right: 8px;
-    }
-
-    .info-card a {
-      color: #007bff;
-      text-decoration: none;
-    }
-
-    .info-card a:hover {
-      text-decoration: underline;
-    }
-
-    .qr-section {
-      text-align: center;
-      margin-top: 50px;
-    }
-
-    .qr-section h4 {
-      font-size: 20px;
-      margin-bottom: 20px;
-    }
-
-    .qr-box {
-      display: inline-block;
-      padding: 15px;
-      background: #f9f9f9;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    .qr-box img {
-      display: block;
-    }
-
-    .footer {
-      text-align: center;
-      margin-top: 50px;
-      margin-bottom: 30px;
-      color: #6c757d;
-    }
-
-    /* Add to Contact Button */
-    .sticky-btn-wrapper {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1000;
-    }
-
-    .add-contact-btn {
-      background: #000000;
-      color: white;
-      padding: 15px 30px;
-      border-radius: 50px;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-      transition: all 0.3s ease;
-    }
-
-    .add-contact-btn:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
-      color: white;
-    }
-
-    .share-btn {
-      position: fixed;
-      top: 50%;
-      right: 0;
-      transform: translateY(-50%);
-      background: #000000;
-      color: #fff;
-      padding: 14px 18px;
-      border-radius: 12px 0 0 12px;
-      font-size: 20px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-      text-decoration: none;
-      transition: all 0.3s ease;
-      z-index: 9999;
-    }
-
-    .share-btn:hover {
-      background: #afafaf;
-    }
-
-    @media (max-width: 600px) {
-      .contact-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .sticky-btn-wrapper {
-        bottom: 15px;
-        right: 15px;
-      }
-
-      .add-contact-btn {
-        padding: 12px 20px;
-        font-size: 0.9rem;
-      }
-    }
-
-    @media (min-width: 601px) {
-      .share-btn {
-        left: 50%;
-        right: auto;
-        margin-left: 250px;
-      }
-    }
-
-    /* --- New Sections CSS (Black/White Theme) --- */
-
-    .section-header {
-      text-align: center;
-      font-size: 20px;
-      margin: 40px 0 20px;
-      position: relative;
-      padding-bottom: 15px;
-      color: #333;
-    }
-
-    .section-header::after {
-      display: none;
-    }
-
-    /* Island Section Style */
-    .section-island {
-      background: #fff;
-      border-radius: 16px;
-      padding: 25px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-      margin: 20px 15px;
-    }
-
-    .section-island .section-header {
-      margin-top: 0;
-    }
-
-    /* Common Card Styles */
-    .gallery-card,
-    .product-card,
-    .testimonial-card {
-      background: #f9f9f9;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      margin: 10px;
-      transition: transform 0.3s ease;
-    }
-
-    .gallery-card:hover,
-    .product-card:hover,
-    .testimonial-card:hover {
-      transform: translateY(-5px);
-    }
-
-    /* Gallery */
-    .gallery-card iframe {
-      width: 100%;
-      height: 200px;
-      border: none;
-    }
-
-    /* Products */
-    .product-image {
-      width: 100%;
-      height: 180px;
-      overflow: hidden;
-    }
-
-    .product-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .product-details {
-      padding: 15px;
-    }
-
-    .product-details h4 {
-      font-size: 16px;
-      margin-bottom: 8px;
-      color: #000;
-    }
-
-    .product-details p {
-      font-size: 13px;
-      color: #666;
-      line-height: 1.5;
-    }
-
-    /* Testimonials */
-    .testimonial-card {
-      padding: 20px;
-    }
-
-    .testimonial-user {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 15px;
-    }
-
-    .testimonial-avatar {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      overflow: hidden;
-    }
-
-    .testimonial-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .testimonial-user-info h5 {
-      margin: 0;
-      font-size: 16px;
-      color: #000;
-    }
-
-    .testimonial-user-info p {
-      margin: 0;
-      font-size: 12px;
-      color: #6c757d;
-    }
-
-    .testimonial-message {
-      font-size: 14px;
-      color: #555;
-      font-style: italic;
-      line-height: 1.5;
-    }
-
-
-
-    /* Slick Custom */
-    .slick-dots li button:before {
-      font-size: 10px;
-      color: #ccc;
-    }
-
-    .slick-dots li.slick-active button:before {
-      color: #000 !important;
-    }
-
-    .slick-prev:before,
-    .slick-next:before {
-      color: #000;
+    @media(min-width:601px){
+      .share-btn{left:50%;right:auto;margin-left:250px}
     }
   </style>
 </head>
-
 <body>
   <div class="wrapper">
-
-    <!-- Banner -->
     <div class="banner">
-      <video autoplay loop muted playsinline>
-        <source src="https://www.aclassmarble.co.in/video/50-years.mp4" type="video/mp4">
-        Your browser does not support the video tag.
+      <video autoplay muted playsinline>
+        <source src="https://www.dropbox.com/scl/fi/1xmggl1utguulrb4op22h/aclasslogo-video.mp4?rlkey=dhhg7zsbe2eusg2sn14ehpk0d&st=8422qkxt&raw=1" type="video/mp4">
       </video>
     </div>
 
-    <!-- Profile Section -->
     <div class="profile-box">
-      <img
-        src="https://www.dropbox.com/scl/fi/61ag6ljk72w3oiza1s3ei/shashank-profile-1.jpg?rlkey=pmwve4ps1bffnguzfvwinvct2&st=gfosi8w6&raw=1"
-        alt="Profile" />
+      <img src="https://www.dropbox.com/scl/fi/61ag6ljk72w3oiza1s3ei/shashank-profile-1.jpg?rlkey=pmwve4ps1bffnguzfvwinvct2&st=gfosi8w6&raw=1" alt="Profile"/>
       <h3>Shashank Sharma</h3>
       <p class="subtitle">General Manager - Marketing</p>
       <p class="company">A Class Marble</p>
       <p class="description">Dream Big - Choose A Class Marble</p>
-
-      <!-- Social Icons -->
       <div class="social-icons">
-        <a href="https://www.aclassmarble.co.in/" target="_blank" aria-label="Website"><i
-            class="fa-solid fa-globe"></i></a>
-        <a href="https://www.facebook.com/aclassmarble/" target="_blank" aria-label="Facebook"><i
-            class="fab fa-facebook"></i></a>
-        <a href="https://www.instagram.com/aclassmarble/" target="_blank" aria-label="Instagram"><i
-            class="fab fa-instagram"></i></a>
-        <a href="https://www.linkedin.com/in/shashank-s-sharma/" target="_blank" aria-label="LinkedIn"><i
-            class="fab fa-linkedin"></i></a>
-        <a href="https://wa.me/+919958039396/?text=" target="_blank" aria-label="WhatsApp"><i
-            class="fab fa-whatsapp"></i></a>
-        <a href="https://share.google/g8dxSqcLO6hRQng4A" target="_blank" aria-label="Location">
-          <i class="fa-solid fa-location-dot"></i>
-        </a>
+        <a href="https://www.aclassmarble.co.in/" target="_blank" aria-label="Website"><i class="fa-solid fa-globe"></i></a>
+        <a href="https://www.facebook.com/aclassmarble/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.instagram.com/aclassmarble/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.linkedin.com/in/shashank-s-sharma/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="https://wa.me/+919958039396/?text=" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://share.google/g8dxSqcLO6hRQng4A" target="_blank" aria-label="Location"><i class="fa-solid fa-location-dot"></i></a>
       </div>
     </div>
 
-    <!-- Contact Cards -->
     <div class="contact-grid">
       <div class="info-card">
         <h6><i class="fa-solid fa-envelope"></i> Email</h6>
-        <a href="mailto:gm.mktg.mum@aclassmarble.co.in">gm.mktg.mum@aclassmarble.co.in</a>
+        <a href="mailto:gm.mum@aclassmarble.co.in">gm.mum@aclassmarble.co.in</a>
       </div>
-
       <div class="info-card">
         <h6><i class="fa-solid fa-phone"></i> Mobile</h6>
-        <a href="tel:+99580 39396">+91 99580 39396</a>
+        <a href="tel:+919958039396">+91 99580 39396</a>
       </div>
-
       <div class="info-card full-width">
         <h6><i class="fa-solid fa-location-dot"></i> Address</h6>
         Office : 68/21 Najafgarh Road Near Mahindra Showroom Moti Nagar New Delhi 110015.
       </div>
     </div>
 
-
-
-    <!-- Video Gallery Section -->
     <div class="gallery-section section-island">
       <h2 class="section-header">Video Gallery</h2>
       <div class="gallery-slider">
@@ -515,19 +140,14 @@
       </div>
     </div>
 
-    <!-- Product Slider Section -->
     <div class="product-section section-island">
       <h2 class="section-header">Products</h2>
       <div class="product-slider">
-        <!-- Product 1 -->
         <div class="product-item">
-          <a href="https://apac1.api.revspire.io/pitchurl/?name=ACM-Beige--Grey-CollectionMAIN&id=ITV696133066616"
-            target="_blank" style="text-decoration:none;">
+          <a href="https://apac1.api.revspire.io/pitchurl/?name=ACM-Beige--Grey-CollectionMAIN&id=ITV696133066616" target="_blank" style="text-decoration:none">
             <div class="product-card">
               <div class="product-image">
-                <img
-                  src="https://bizcard.orbiz.in/uploads/vcards/products/2221/WhatsApp-Image-2025-02-09-at-2.22.16-PM.jpeg"
-                  alt="ACM Beige Collection">
+                <img src="https://bizcard.orbiz.in/uploads/vcards/products/2221/WhatsApp-Image-2025-02-09-at-2.22.16-PM.jpeg" alt="ACM Beige Collection">
               </div>
               <div class="product-details">
                 <h4>ACM Beige Collection</h4>
@@ -536,14 +156,11 @@
             </div>
           </a>
         </div>
-        <!-- Product 2 -->
         <div class="product-item">
-          <a href="https://apac1.api.revspire.io/pitchurl/?name=ACM-White-CollectionMAIN&id=ITV711182303456"
-            target="_blank" style="text-decoration:none;">
+          <a href="https://apac1.api.revspire.io/pitchurl/?name=ACM-White-CollectionMAIN&id=ITV711182303456" target="_blank" style="text-decoration:none">
             <div class="product-card">
               <div class="product-image">
-                <img src="https://bizcard.orbiz.in/uploads/vcards/products/2220/White-Marble-Pic.jpeg"
-                  alt="ACM White Collection">
+                <img src="https://bizcard.orbiz.in/uploads/vcards/products/2220/White-Marble-Pic.jpeg" alt="ACM White Collection">
               </div>
               <div class="product-details">
                 <h4>ACM White Collection</h4>
@@ -552,13 +169,11 @@
             </div>
           </a>
         </div>
-        <!-- Product 3 -->
         <div class="product-item">
-          <a href="https://www.aclassmarble.co.in/products.php?pid=2" target="_blank" style="text-decoration:none;">
+          <a href="https://www.aclassmarble.co.in/products.php?pid=2" target="_blank" style="text-decoration:none">
             <div class="product-card">
               <div class="product-image">
-                <img src="https://bizcard.orbiz.in/uploads/vcards/products/1418/Screenshot-2024-08-30-154930.jpg"
-                  alt="Pristine">
+                <img src="https://bizcard.orbiz.in/uploads/vcards/products/1418/Screenshot-2024-08-30-154930.jpg" alt="Pristine">
               </div>
               <div class="product-details">
                 <h4>Pristine</h4>
@@ -567,18 +182,15 @@
             </div>
           </a>
         </div>
-        <!-- Product 4 -->
         <div class="product-item">
-          <a href="https://www.aclassmarble.co.in/products.php?pid=1" target="_blank" style="text-decoration:none;">
+          <a href="https://www.aclassmarble.co.in/products.php?pid=1" target="_blank" style="text-decoration:none">
             <div class="product-card">
               <div class="product-image">
-                <img src="https://bizcard.orbiz.in/uploads/vcards/products/1417/Screenshot-2024-08-30-154745.jpg"
-                  alt="Signature">
+                <img src="https://bizcard.orbiz.in/uploads/vcards/products/1417/Screenshot-2024-08-30-154745.jpg" alt="Signature">
               </div>
               <div class="product-details">
                 <h4>Signature</h4>
-                <p>Unveil the unmatched aura that would leave no one unmoved with Statuario Marble in your interiors.
-                </p>
+                <p>Unveil the unmatched aura that would leave no one unmoved with Statuario Marble in your interiors.</p>
               </div>
             </div>
           </a>
@@ -586,7 +198,6 @@
       </div>
     </div>
 
-    <!-- Testimonial Slider Section -->
     <div class="testimonial-section section-island">
       <h2 class="section-header">Testimonials</h2>
       <div class="testimonial-slider">
@@ -594,63 +205,49 @@
           <div class="testimonial-card">
             <div class="testimonial-user">
               <div class="testimonial-avatar">
-                <img src="https://bizcard.orbiz.in/uploads/vcards/testimonials/1419/Screenshot-2024-08-30-155247.jpg"
-                  alt="Kiran Gala">
+                <img src="https://bizcard.orbiz.in/uploads/vcards/testimonials/1419/Screenshot-2024-08-30-155247.jpg" alt="Kiran Gala">
               </div>
               <div class="testimonial-user-info">
                 <h5>Kiran Gala</h5>
                 <p>Architect</p>
               </div>
             </div>
-            <p class="testimonial-message">"The visit happened once when we wanted to buy some very nice statuario. My
-              client was also very happy to see the availability of the Range."</p>
+            <p class="testimonial-message">"The visit happened once when we wanted to buy some very nice statuario. My client was also very happy to see the availability of the Range."</p>
           </div>
         </div>
         <div class="testimonial-item">
           <div class="testimonial-card">
             <div class="testimonial-user">
               <div class="testimonial-avatar">
-                <img src="https://bizcard.orbiz.in/uploads/vcards/testimonials/1420/Screenshot-2024-08-30-155320.jpg"
-                  alt="Zafar Choudhary">
+                <img src="https://bizcard.orbiz.in/uploads/vcards/testimonials/1420/Screenshot-2024-08-30-155320.jpg" alt="Zafar Choudhary">
               </div>
               <div class="testimonial-user-info">
                 <h5>Zafar Choudhary</h5>
               </div>
             </div>
-            <p class="testimonial-message">"They have been really responsive to our requirements of good quality marble.
-              They have an ability to surprise us with something new."</p>
+            <p class="testimonial-message">"They have been really responsive to our requirements of good quality marble. They have an ability to surprise us with something new."</p>
           </div>
         </div>
       </div>
     </div>
 
-
-
-    <!-- QR Code -->
-
     <div class="qr-section section-island">
       <h2 class="section-header">QR Code</h2>
       <div class="qr-box">
-        <img
-          src="https://www.dropbox.com/scl/fi/t5n82u8x3i4jv8r45lj1m/aclassmarbleqrcode.jpg?rlkey=99xd952c8i96mptwcglb2683k&st=c9b1l3z5&raw=1"
-          width="180" alt="QR" />
+        <img id="qrCodeImg" src="https://www.dropbox.com/scl/fi/tfco1n0fi8pj9q5m1o6vq/shashank_qr_code.webp?rlkey=i1hvx9z334w1n3u2z9avjqi6s&st=017d34o0&raw=1" width="180" alt="QR"/>
       </div>
     </div>
-
 
     <p class="footer">© Copyright 2026 <br> A-Class Overseas</p>
   </div>
 
-  <!-- Sticky Add to Contact Button -->
   <div class="sticky-btn-wrapper">
-    <!-- Replace 'YOUR_VCARD_FILE_URL_HERE' with your hosted vCard file URL -->
-    <a href="https://aclassoverseas.com/contact/Shashank_Sharma_AClass.vcf" download class="add-contact-btn">
+    <a href="https://a-classoverseas.github.io/shashank-sharma/shashank_sharma_a-class.vcf" download class="add-contact-btn">
       <i class="fas fa-address-card"></i>
       Add to Contact
     </a>
   </div>
 
-  <!-- Image Modal -->
   <div class="modal-overlay" id="imageModal">
     <span class="modal-close" id="closeModal">&times;</span>
     <img class="modal-content" id="modalImage" src="" alt="Profile">
@@ -662,88 +259,27 @@
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
   <script>
-    $(document).ready(function () {
-      // 1. Gallery Slider
-      $('.gallery-slider').slick({
-        dots: true,
-        infinite: true,
-        speed: 300,
-        slidesToShow: 1,
-        adaptiveHeight: true,
-        autoplay: false,
-        arrows: false
-      });
-
-      // 2. Product Slider
-      $('.product-slider').slick({
-        dots: true,
-        infinite: true,
-        speed: 300,
-        slidesToShow: 2,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        arrows: false,
-        responsive: [
-          {
-            breakpoint: 480,
-            settings: {
-              slidesToShow: 1
-            }
-          }
-        ]
-      });
-
-      // 3. Testimonial Slider
-      $('.testimonial-slider').slick({
-        dots: true,
-        infinite: true,
-        speed: 300,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 4000,
-        arrows: false
-      });
+    $(document).ready(function(){
+      $('.gallery-slider').slick({dots:true,infinite:true,speed:300,slidesToShow:1,adaptiveHeight:true,autoplay:false,arrows:false});
+      $('.product-slider').slick({dots:true,infinite:true,speed:300,slidesToShow:2,slidesToScroll:1,autoplay:true,autoplaySpeed:3000,arrows:false,responsive:[{breakpoint:480,settings:{slidesToShow:1}}]});
+      $('.testimonial-slider').slick({dots:true,infinite:true,speed:300,slidesToShow:1,slidesToScroll:1,autoplay:true,autoplaySpeed:4000,arrows:false});
     });
 
-
-
-    // Profile Image Modal
-    const profileImg = document.querySelector('.profile-box img');
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('modalImage');
-    const closeModal = document.getElementById('closeModal');
-
-    profileImg.addEventListener('click', function () {
-      modal.classList.add('active');
-      modalImg.src = this.src;
-    });
-
-    modal.addEventListener('click', function () {
-      modal.classList.remove('active');
-    });
-
-    closeModal.addEventListener('click', function () {
-      modal.classList.remove('active');
-    });
-
-    // Share Profile
-    function shareProfile() {
-      if (navigator.share) {
-        navigator.share({
-          title: document.title,
-          url: window.location.href
-        }).catch(console.error);
-      } else {
-        navigator.clipboard.writeText(window.location.href).then(() => {
-          alert('Link copied to clipboard!');
-        }).catch(console.error);
+    const profileImg=document.querySelector('.profile-box img'),modal=document.getElementById('imageModal'),modalImg=document.getElementById('modalImage'),closeModal=document.getElementById('closeModal'),qrCodeImg=document.getElementById('qrCodeImg');
+    
+    profileImg.addEventListener('click',function(){modal.classList.add('active');modalImg.src=this.src});
+    if(qrCodeImg)qrCodeImg.addEventListener('click',function(){modal.classList.add('active');modalImg.src=this.src});
+    modal.addEventListener('click',function(){modal.classList.remove('active')});
+    closeModal.addEventListener('click',function(){modal.classList.remove('active')});
+    
+    function shareProfile(){
+      if(navigator.share){
+        navigator.share({title:document.title,url:window.location.href}).catch(console.error);
+      }else{
+        navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied to clipboard!')).catch(console.error);
       }
     }
   </script>
 </body>
-
 </html>
